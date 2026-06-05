@@ -1,0 +1,13 @@
+services:
+  migrate:
+    image: migrate/migrate
+    profiles: ["manual"]
+    entrypoint: ["migrate", "create", "-ext", "sql", "-dir", "/migrations"]
+    volumes:
+      - ./infra/database/migrations:/migrations
+  sqlc:
+    image: sqlc/sqlc:1.27.0
+    working_dir: /app
+    volumes:
+      - ./:/app
+    command: ["generate"]
