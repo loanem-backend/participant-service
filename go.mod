@@ -8,6 +8,9 @@ require (
 	github.com/jackc/pgx/v5 v5.10.0 // indirect
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
 	github.com/joho/godotenv v1.5.1 // indirect
+	github.com/loanem-backend/course-service v0.0.0-20260604122032-88c8bf6e93c2 // indirect
+	github.com/loanem-backend/protos v0.0.0-20260605153647-b5bded6c3435 // indirect
+	github.com/rabbitmq/amqp091-go v1.11.0 // indirect
 	golang.org/x/net v0.51.0 // indirect
 	golang.org/x/sync v0.20.0 // indirect
 	golang.org/x/sys v0.42.0 // indirect

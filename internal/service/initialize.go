@@ -6,7 +6,7 @@ import (
 	"github.com/loanem-backend/participant-service/internal/repository"
 )
 
-func Initialize(p *pgxpool.Pool) ClassService {
+func Initialize(p *pgxpool.Pool) (CourseService, ClassService, TeamService) {
 	queries := sqlc.New(p)
 
 	var (
@@ -15,8 +15,10 @@ func Initialize(p *pgxpool.Pool) ClassService {
 	)
 
 	var (
-		classServ = NewClassService()
+		courseServ = NewCourseService(courseRepo)
+		classServ  = NewClassService(classRepo)
+		teamServ   = NewTeamService()
 	)
 
-	return classServ
+	return courseServ, classServ, teamServ
 }
