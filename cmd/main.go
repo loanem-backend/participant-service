@@ -43,4 +43,7 @@ func main() {
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("failed serving grpc: %n\n", err)
 	}
+
+	<-ctx.Done()
+	log.Println("Stopping server gracefully...")
 }

@@ -12,12 +12,13 @@ func Initialize(p *pgxpool.Pool) (CourseService, ClassService, TeamService) {
 	var (
 		courseRepo = repository.NewCourseRepository(queries)
 		classRepo  = repository.NewClassRepository(queries)
+		teamRepo   = repository.NewTeamRepository(queries)
 	)
 
 	var (
 		courseServ = NewCourseService(courseRepo)
 		classServ  = NewClassService(classRepo)
-		teamServ   = NewTeamService()
+		teamServ   = NewTeamService(teamRepo)
 	)
 
 	return courseServ, classServ, teamServ
