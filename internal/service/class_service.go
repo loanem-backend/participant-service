@@ -37,7 +37,7 @@ func (s *classService) AddClasses(ctx context.Context, courseID int32, names []u
 	}()
 
 	for _, name := range names {
-		if _, err := s.classRepo.Insert(ctx, &entity.Class{
+		if _, err := s.classRepo.WithTX(tx).Insert(ctx, &entity.Class{
 			Name: string(rune(name)),
 			Course: entity.Course{
 				ID: int(courseID),

@@ -18,7 +18,7 @@ func Initialize(p *pgxpool.Pool) (CourseService, ClassService, TeamService) {
 	var (
 		courseServ = NewCourseService(courseRepo)
 		classServ  = NewClassService(p, classRepo)
-		teamServ   = NewTeamService(teamRepo)
+		teamServ   = NewTeamService(p, teamRepo)
 	)
 
 	return courseServ, classServ, teamServ

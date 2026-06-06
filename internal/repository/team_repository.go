@@ -3,12 +3,15 @@ package repository
 import (
 	"context"
 
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/loanem-backend/participant-service/infra/database/sqlc"
 	"github.com/loanem-backend/participant-service/internal/entity"
 )
 
 type TeamRepository interface {
+	WithTX(tx pgx.Tx) TeamRepository
+
 	Insert(ctx context.Context, t *entity.Team) error
 }
 
@@ -19,6 +22,12 @@ type teamRepository struct {
 func NewTeamRepository(q *sqlc.Queries) TeamRepository {
 	return &teamRepository{
 		db: q,
+	}
+}
+
+func (r *teamRepository) WithTX(tx pgx.Tx) TeamRepository {
+	return &teamRepository{
+		db: r.db.WithTx(tx),
 	}
 }
 

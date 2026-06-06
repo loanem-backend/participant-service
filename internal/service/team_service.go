@@ -4,6 +4,8 @@ import (
 	"context"
 
 	"github.com/google/uuid"
+	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/loanem-backend/course-service/pkg/dbtx"
 	"github.com/loanem-backend/participant-service/internal/entity"
 	"github.com/loanem-backend/participant-service/internal/repository"
 	"google.golang.org/grpc/codes"
@@ -11,25 +13,41 @@ import (
 )
 
 type TeamService interface {
-	Add(ctx context.Context, t *entity.Team) (string, error)
+	Add(ctx context.Context, classID, numberOfTeams int32) error
 }
 
 type teamService struct {
+	db       *pgxpool.Pool
 	teamRepo repository.TeamRepository
 }
 
-func NewTeamService(tr repository.TeamRepository) TeamService {
+func NewTeamService(p *pgxpool.Pool, tr repository.TeamRepository) TeamService {
 	return &teamService{
+		db:       p,
 		teamRepo: tr,
 	}
 }
 
-func (s *teamService) Add(ctx context.Context, t *entity.Team) (string, error) {
-	t.ID = uuid.New()
+func (s *teamService) Add(ctx context.Context, classID, numberOfTeams int32) error {
+	tx, err := dbtx.BeginTransaction(ctx, s.db)
+	if err != nil {
+		return status.Error(codes.Internal, err.Error())
+	}
+	defer func() {
+		err = dbtx.CommitOrRollbackTransaction(ctx, tx, err)
+	}()
 
-	if err := s.teamRepo.Insert(ctx, t); err != nil {
-		return "", status.Error(codes.Internal, err.Error())
+	for i := 1; i <= int(numberOfTeams); i++ {
+		if err := s.teamRepo.WithTX(tx).Insert(ctx, &entity.Team{
+			ID:     uuid.New(),
+			Number: i,
+			Class: entity.Class{
+				ID: int(classID),
+			},
+		}); err != nil {
+			return status.Error(codes.Internal, err.Error())
+		}
 	}
 
-	return t.ID.String(), nil
+	return nil
 }

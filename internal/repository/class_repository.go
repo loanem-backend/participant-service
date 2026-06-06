@@ -3,12 +3,15 @@ package repository
 import (
 	"context"
 
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/loanem-backend/participant-service/infra/database/sqlc"
 	"github.com/loanem-backend/participant-service/internal/entity"
 )
 
 type ClassRepository interface {
+	WithTX(tx pgx.Tx) ClassRepository
+
 	Insert(ctx context.Context, c *entity.Class) (int32, error)
 	Delete(ctx context.Context, cID int32) error
 	FindByCourse(ctx context.Context, crsID int32) ([]*entity.Class, error)
@@ -21,6 +24,12 @@ type classRepository struct {
 func NewClassRepository(q *sqlc.Queries) ClassRepository {
 	return &classRepository{
 		db: q,
+	}
+}
+
+func (r *classRepository) WithTX(tx pgx.Tx) ClassRepository {
+	return &classRepository{
+		db: r.db.WithTx(tx),
 	}
 }
 
