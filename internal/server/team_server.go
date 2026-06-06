@@ -21,16 +21,20 @@ func NewTeamServer(cs service.ClassService, ts service.TeamService) *TeamServer 
 	}
 }
 
-func (s *TeamServer) AddClass(ctx context.Context, req *pbparticipant.AddClassRequest) (*pbparticipant.AddClassResponse, error) {
-	return nil, nil
+func (s *TeamServer) AddClasses(ctx context.Context, req *pbparticipant.AddClassesRequest) (*pbparticipant.AddClassesResponse, error) {
+	if err := s.classServ.AddClasses(ctx, req.GetCourseId(), req.GetNames()); err != nil {
+		return nil, err
+	}
+
+	return &pbparticipant.AddClassesResponse{}, nil
 }
 
-func (s *TeamServer) AddTeam(ctx context.Context, req *pbparticipant.AddTeamRequest) (*pbparticipant.AddTeamResponse, error) {
+func (s *TeamServer) AddTeam(ctx context.Context, req *pbparticipant.AddTeamsRequest) (*pbparticipant.AddTeamsResponse, error) {
 	if _, err := s.teamServ.Add(ctx, mapper.AddTeamRequestToTeam(req)); err != nil {
 		return nil, err
 	}
 
-	return &pbparticipant.AddTeamResponse{}, nil
+	return &pbparticipant.AddTeamsResponse{}, nil
 }
 
 func (s *TeamServer) GetClassesByCourseID(ctx context.Context, req *pbparticipant.GetClassesByCourseIDRequest) (*pbparticipant.GetClassesByCourseIDResponse, error) {
