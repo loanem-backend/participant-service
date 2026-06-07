@@ -13,6 +13,7 @@ import (
 
 type ClassService interface {
 	AddClasses(ctx context.Context, courseID int32, names []string) error
+	GetByCourse(ctx context.Context, courseID int32) ([]*entity.Class, error)
 }
 
 type classService struct {
@@ -48,4 +49,13 @@ func (s *classService) AddClasses(ctx context.Context, courseID int32, names []s
 	}
 
 	return nil
+}
+
+func (s *classService) GetByCourse(ctx context.Context, courseID int32) ([]*entity.Class, error) {
+	classes, err := s.classRepo.FindByCourseID(ctx, courseID)
+	if err != nil {
+		return nil, status.Error(codes.Internal, err.Error())
+	}
+
+	return classes, nil
 }

@@ -14,7 +14,7 @@ type ClassRepository interface {
 
 	Insert(ctx context.Context, c *entity.Class) (int32, error)
 	Delete(ctx context.Context, cID int32) error
-	FindByCourse(ctx context.Context, crsID int32) ([]*entity.Class, error)
+	FindByCourseID(ctx context.Context, crsID int32) ([]*entity.Class, error)
 }
 
 type classRepository struct {
@@ -53,7 +53,7 @@ func (r *classRepository) Delete(ctx context.Context, cID int32) error {
 	return nil
 }
 
-func (r *classRepository) FindByCourse(ctx context.Context, crsID int32) ([]*entity.Class, error) {
+func (r *classRepository) FindByCourseID(ctx context.Context, crsID int32) ([]*entity.Class, error) {
 	rows, err := r.db.FindClassesByCourseID(ctx, pgtype.Int4{
 		Int32: crsID, Valid: true,
 	})
