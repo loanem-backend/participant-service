@@ -1,0 +1,5 @@
+DROP TABLE IF EXISTS teams;
+
+DROP TABLE IF EXISTS classes;
+
+DROP TABLE IF EXISTS repl_courses;
