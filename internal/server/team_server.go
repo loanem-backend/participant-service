@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 
+	"github.com/loanem-backend/participant-service/internal/mapper"
 	"github.com/loanem-backend/participant-service/internal/service"
 	pbparticipant "github.com/loanem-backend/protos/pb/proto/services/participant/v1"
 )
@@ -37,5 +38,10 @@ func (s *TeamServer) AddTeam(ctx context.Context, req *pbparticipant.AddTeamsReq
 }
 
 func (s *TeamServer) GetClassesByCourseID(ctx context.Context, req *pbparticipant.GetClassesByCourseIDRequest) (*pbparticipant.GetClassesByCourseIDResponse, error) {
-	return nil, nil
+	classesData, err := s.classServ.GetByCourse(ctx, req.GetCourseId())
+	if err != nil {
+		return nil, err
+	}
+
+	return mapper.ClassesToGetClassesByCourseIDResponse(classesData), nil
 }
