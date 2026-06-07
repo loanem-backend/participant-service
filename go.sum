@@ -23,6 +23,8 @@ github.com/loanem-backend/protos v0.0.0-20260606163944-38012159c9f3 h1:7np+t2Ttp
 github.com/loanem-backend/protos v0.0.0-20260606163944-38012159c9f3/go.mod h1:WeVOgyBItLRSJ1mgjcFcGWvvKgpTEoaYxCWHUtUr0fA=
 github.com/loanem-backend/protos v0.0.0-20260606164853-d07435fc8d47 h1:SoUDLXjnLm3VLmhKtCMijNUGLCyEbGvwPKVvc3gS58o=
 github.com/loanem-backend/protos v0.0.0-20260606164853-d07435fc8d47/go.mod h1:WeVOgyBItLRSJ1mgjcFcGWvvKgpTEoaYxCWHUtUr0fA=
+github.com/loanem-backend/protos v0.0.0-20260607030806-9a7c6df8fff9 h1:cIeRPijLwOq3Xpn0Bfy2PV5ApLiNPuKKzsiEhNW/e9M=
+github.com/loanem-backend/protos v0.0.0-20260607030806-9a7c6df8fff9/go.mod h1:WeVOgyBItLRSJ1mgjcFcGWvvKgpTEoaYxCWHUtUr0fA=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/rabbitmq/amqp091-go v1.11.0 h1:HxIctVm9Gid/Vtn706necmZ7Wj6pgGI2eqplRbEY8O8=
 github.com/rabbitmq/amqp091-go v1.11.0/go.mod h1:Hy4jKW5kQART1u+JkDTF9YYOQUHXqMuhrgxOEeS7G4o=

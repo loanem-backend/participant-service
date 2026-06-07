@@ -12,7 +12,7 @@ import (
 )
 
 type ClassService interface {
-	AddClasses(ctx context.Context, courseID int32, names []uint32) error
+	AddClasses(ctx context.Context, courseID int32, names []string) error
 }
 
 type classService struct {
@@ -27,7 +27,7 @@ func NewClassService(p *pgxpool.Pool, cr repository.ClassRepository) ClassServic
 	}
 }
 
-func (s *classService) AddClasses(ctx context.Context, courseID int32, names []uint32) error {
+func (s *classService) AddClasses(ctx context.Context, courseID int32, names []string) error {
 	tx, err := dbtx.BeginTransaction(ctx, s.db)
 	if err != nil {
 		return status.Error(codes.Internal, err.Error())
@@ -38,7 +38,7 @@ func (s *classService) AddClasses(ctx context.Context, courseID int32, names []u
 
 	for _, name := range names {
 		if _, err := s.classRepo.WithTX(tx).Insert(ctx, &entity.Class{
-			Name: string(rune(name)),
+			Name: name,
 			Course: entity.Course{
 				ID: int(courseID),
 			},
