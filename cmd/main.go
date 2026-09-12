@@ -30,9 +30,9 @@ func main() {
 
 	s := grpc.NewServer()
 
-	crs, cls, ts := service.Initialize(db)
+	crs, cls, ts, ps := service.Initialize(db)
 
-	server.Start(s, cls, ts)
+	server.Start(s, cls, ts, ps)
 
 	if err := messenger.Start(ctx, amqpCh, crs); err != nil {
 		log.Fatalf("failed starting service: %v\n", err)

@@ -16,6 +16,15 @@ type Class struct {
 	UpdatedAt pgtype.Timestamp
 }
 
+type Participant struct {
+	ID        string
+	Nim       string
+	Name      string
+	ClassID   pgtype.Int4
+	CreatedAt pgtype.Timestamp
+	UpdatedAt pgtype.Timestamp
+}
+
 type ReplCourse struct {
 	ID        int32
 	Name      string
@@ -30,4 +39,10 @@ type Team struct {
 	ClassID   pgtype.Int4
 	CreatedAt pgtype.Timestamp
 	UpdatedAt pgtype.Timestamp
+}
+
+type TeamParticipant struct {
+	TeamID        string
+	ParticipantID string
+	CreatedAt     pgtype.Timestamp
 }

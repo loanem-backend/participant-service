@@ -6,6 +6,7 @@ import (
 	"google.golang.org/grpc"
 )
 
-func Start(s *grpc.Server, cs service.ClassService, ts service.TeamService) {
+func Start(s *grpc.Server, cs service.ClassService, ts service.TeamService, ps service.ParticipantService) {
 	pbparticipant.RegisterTeamServiceServer(s, NewTeamServer(cs, ts))
+	pbparticipant.RegisterParticipantServiceServer(s, NewParticipantServer(ps))
 }
